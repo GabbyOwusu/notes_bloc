@@ -42,7 +42,18 @@ class _NotesEditorState extends State<NotesEditor> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          actions: [
+            if (widget.currentNote != null)
+              IconButton(
+                onPressed: () {
+                  bloc.add(
+                    DeleteNote(note: widget.currentNote!),
+                  );
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete),
+              )
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -115,19 +126,19 @@ class _NotesEditorState extends State<NotesEditor> {
                 ),
               );
             } else {
-              context.read<NotesBloc>().add(
-                    AddNote(
-                      note: NoteModel(
-                        title: titleController.text,
-                        body: bodyController.text,
-                        createdAt: DateTime.now(),
-                      ),
-                    ),
-                  );
+              bloc.add(
+                AddNote(
+                  note: NoteModel(
+                    title: titleController.text,
+                    body: bodyController.text,
+                    createdAt: DateTime.now(),
+                  ),
+                ),
+              );
             }
             Navigator.pop(context);
           },
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.save),
         ),
       ),
     );
