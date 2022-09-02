@@ -27,24 +27,24 @@ class MyApp extends StatelessWidget {
                     createdAt: DateTime.now(),
                   ),
                   NoteModel(
-                    title: "First note",
+                    title: "Second note",
                     body:
                         "Here is some note body,Here is some note body,Here is some note body",
                     createdAt: DateTime.now(),
                   ),
                   NoteModel(
-                    title: "First note",
+                    title: "Third note",
                     body:
                         "Here is some note body,Here is some note body,Here is some note body",
                     createdAt: DateTime.now(),
                   ),
                   NoteModel(
-                    title: "First note",
+                    title: "Fourth note",
                     body: "Here is some note body",
                     createdAt: DateTime.now(),
                   ),
                   NoteModel(
-                    title: "First note",
+                    title: "Fifth note",
                     body: "Here is some note body",
                     createdAt: DateTime.now(),
                   ),
