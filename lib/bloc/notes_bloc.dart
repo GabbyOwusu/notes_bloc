@@ -8,10 +8,26 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<LoadNotes>(_loadNotes);
     on<UpdateNote>(_updateNotes);
     on<DeleteNote>(_deleteNote);
+    on<SearchNotes>(_searchNotes);
   }
 
   void _loadNotes(LoadNotes event, Emitter<NotesState> emitter) {
     emitter(NotesLoaded(notes: event.notes));
+  }
+
+  void _searchNotes(SearchNotes event, Emitter<NotesState> emitter) {
+    final state = this.state;
+    if (state is NotesLoaded) {
+      final notes = state.notes;
+
+      final filtered = notes.where(
+        (note) {
+          return note.title!.toLowerCase().contains(event.query) ||
+              note.body!.toLowerCase().contains(event.query);
+        },
+      ).toList();
+      emitter(NotesLoaded(notes: filtered));
+    }
   }
 
   void _addNote(AddNote event, Emitter<NotesState> emitter) {
