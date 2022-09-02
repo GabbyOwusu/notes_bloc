@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_bloc/bloc/notes_bloc.dart';
+import 'package:notes_bloc/bloc/notes_event.dart';
 import 'package:notes_bloc/bloc/notes_state.dart';
 import 'package:notes_bloc/views/notes_editor.dart';
 import 'package:notes_bloc/widgets/note_card.dart';
@@ -17,6 +18,7 @@ class NotesListView extends StatefulWidget {
 class _NotesListViewState extends State<NotesListView> {
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<NotesBloc>();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -44,34 +46,18 @@ class _NotesListViewState extends State<NotesListView> {
                       children: [
                         Expanded(
                           child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              height: 42,
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 30),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                              child: Row(
-                                children: const [
-                                  Icon(
-                                    Icons.search,
-                                    color: Colors.grey,
-                                    size: 15,
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Search notes',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                              onTap: () {},
+                              child: TextField(
+                                onChanged: (v) {
+                                  setState(() {
+                                    bloc.add(SearchNotes(query: v));
+                                  });
+                                },
+                                decoration: const InputDecoration(
+                                  hintText: 'Search notes',
+                                  filled: true,
+                                ),
+                              )),
                         ),
                         const SizedBox(width: 10),
                         GestureDetector(
